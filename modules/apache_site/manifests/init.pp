@@ -12,13 +12,16 @@ class apache_site {
   service { 'apache2':
     ensure     => running,
     enable     => true,
-    subscribe  => File['/var/www/html/site'],
+    subscribe  => Vcsrepo['/var/www/html/site'],
   }
 
-  # Clone the HTML site from GitHub
-  exec { 'clone_site':
-    command => '/usr/bin/git clone https://github.com/majedghorbel/monsite.git /var/www/html/site',
-    require => Package['git'],
+  # Use vcsrepo to clone the HTML site from GitHub
+  vcsrepo { '/var/www/html/site':
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/majedghorbel/monsite.git',
+    revision => 'master',
+    require  => Package['git'],
   }
 
   # Ensure the /var/www/html/site directory exists and has the right permissions
