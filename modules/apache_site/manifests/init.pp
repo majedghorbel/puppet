@@ -30,7 +30,7 @@ class apache_site {
   })
 
   # Ensure the Apache configuration is correct
-  ensure_resource('file',"/etc/apache2/sites-enabled/site.conf',{
+  ensure_resource('file',"/etc/apache2/sites-enabled/site.conf", {
     content => template('apache_site/site.conf.erb'),
     notify  => Service['apache2'],
   })
