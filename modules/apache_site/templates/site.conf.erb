@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+  DocumentRoot "/var/www/html/site"
+  ServerName www.example.com
+
+  <Directory "/var/www/html/site">
+    AllowOverride All
+    Require all granted
+  </Directory>
+
+  ErrorLog /var/log/httpd/site_error.log
+  CustomLog /var/log/httpd/site_access.log combined
+</VirtualHost>
+
